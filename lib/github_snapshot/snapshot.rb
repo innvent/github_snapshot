@@ -47,7 +47,7 @@ module GithubSnapshot
       @username      = config['username']
       @password      = config['password']
       @organizations = config['organizations']
-      @s3_bucket     = config['s3_bucket']
+      @s3_bucket     = config['s3bucket']
       @backup_folder = config['backup_folder']
       GithubSnapshot.releases_to_keep = config['releases_to_keep']
 
@@ -59,6 +59,7 @@ module GithubSnapshot
     end
 
     def backup
+      create_backup_folder
       download_from_s3
       backup_orgs
       upload_to_s3
@@ -68,9 +69,13 @@ module GithubSnapshot
     end
 
   private
+    def create_backup_folder
+      GithubSnapshot.exec "mkdir -p #{backup_folder}"
+    end
+
     def download_from_s3
       GithubSnapshot.logger.info "downloading fom s3"
-      GithubSnapshot.exec "s3cmd sync —delete-removed s3://#{s3_bucket}/ #{backup_folder}/"
+      GithubSnapshot.exec "s3cmd sync --delete-removed s3://#{s3_bucket}/ #{backup_folder}/"
     end
 
     def backup_orgs
@@ -85,7 +90,7 @@ module GithubSnapshot
 
     def upload_to_s3
       GithubSnapshot.logger.info "uploading to s3"
-      GithubSnapshot.exec "s3cmd sync —delete-removed #{backup_folder}/ s3://#{s3_bucket}/"
+      GithubSnapshot.exec "s3cmd sync --delete-removed #{backup_folder}/ s3://#{s3_bucket}/"
     end
 
   end

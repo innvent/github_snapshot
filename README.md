@@ -1,24 +1,29 @@
 # GithubSnapshot
 
-TODO: Write a gem description
+Snapshoting organization's repositories, including wikis
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'github_snapshot'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+`github_snapshot` should be run as a command line tool, so it makes sense installing it globally
 
     $ gem install github_snapshot
 
+[`s3cmd`](https://github.com/s3tools/s3cmd) should also be installed on the system and properly configured.
+
 ## Usage
 
-TODO: Write usage instructions here
+`github_snapshot` expects a `config.yml` file on the folder it is run, here is a sample:
+
+```yaml
+username: <github user with read access to the repositories>
+password: <github password>
+organizations:
+  - organization1
+  - organization2
+s3bucket: <s3 bucket to store the backups>
+backup_folder: <backup folder were the repos will be cloned to>
+releases_to_keep: <how many releases to keep>
+```
 
 ## Contributing
 

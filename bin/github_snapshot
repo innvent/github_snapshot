@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+$:.unshift File.dirname(__FILE__)+"/../lib"
+
+begin
+  require 'github_snapshot'
+rescue LoadError
+  require 'rubygems'
+  require 'github_snapshot'
+end
+
+gs = GithubSnapshot::Snapshot.new
+gs.backup
