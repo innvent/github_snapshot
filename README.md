@@ -25,6 +25,18 @@ backup_folder: <backup folder were the repos will be cloned to>
 releases_to_keep: <how many releases to keep>
 ```
 
+Then, simply run the gem's binary:
+
+```bash
+$ github_snapshot
+```
+
+**You could be prompted to check the authenticity for `github.com` host**. You can either say yes during the first script execution or disable strict host key checking for it:
+
+```bash
+$ echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+```
+
 ## Contributing
 
 1. Fork it

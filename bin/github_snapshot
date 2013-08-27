@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-$:.unshift File.dirname(__FILE__)+"/../lib"
 
 begin
   require 'github_snapshot'
