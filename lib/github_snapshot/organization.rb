@@ -4,11 +4,10 @@ module GithubSnapshot
 
   class Organization
 
-    attr_reader :name, :folder, :repos
+    attr_reader :name, :repos
 
-    def initialize(name, folder, repos)
+    def initialize(name, repos)
       @name   = name
-      @folder = folder
       @repos  = repos
     end
 

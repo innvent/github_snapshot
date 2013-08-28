@@ -79,13 +79,15 @@ module GithubSnapshot
     end
 
     def backup_orgs
+      Dir.chdir "#{backup_folder}"
       organizations.each do |org|
         GithubSnapshot.logger.info "#{org} - initializing"
         repos        = github.repos.list org: org
-        organization = Organization.new org, "#{backup_folder}/#{org}", repos
+        organization = Organization.new org, repos
         organization.backup
         GithubSnapshot.logger.info "#{org} - ending"
       end
+      Dir.chdir ".."
     end
 
     def upload_to_s3
