@@ -6,13 +6,15 @@ Please do keep in mind that we are not setting up an additional remote that is k
 
 ```
 github-backups/
-├── mongodb
-│   ├── mongo-201308260300.git.tar.gz
-│   ├── mongo-201308270300.git.tar.gz
-│   ├── mongo-java-driver-201308260300.git.tar.gz
-│   ├── mongo-java-driver-201308260300.wiki.git.tar.gz
-│   ├── mongo-java-driver-201308270300.git.tar.gz
-│   ├── mongo-java-driver-201308270300.wiki.git.tar.gz
+├── mozilla
+│   ├── brick-201308260300.git.tar.gz
+│   ├── brick-201308260300.wiki.git.tar.gz
+│   ├── brick-201308270300.git.tar.gz
+│   ├── brick-201308270300.wiki.git.tar.gz
+│   ├── shumway-201308260300.git.tar.gz
+│   ├── shumway-201308260300.wiki.git.tar.gz
+│   ├── shumway-201308270300.git.tar.gz
+│   ├── shumway-201308270300.wiki.git.tar.gz
 └── innvent
     ├── github_snapshot-201308260300.git.tar.gz
     ├── github_snapshot-201308270300.git.tar.gz
