@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = GithubSnapshot::VERSION
   spec.authors       = ["Artur Rodrigues" , "Joao Sa"]
   spec.email         = ["arturhoo@gmail.com"]
-  spec.description   = %q{Snapshoting organization's repositories, including wikis}
-  spec.summary       = %q{Snapshoting organization's repositories}
-  spec.homepage      = ""
+  spec.description   = %q{Snapshots multiple organizations GitHub repositories, including wikis, and syncs them to Amazon's S3}
+  spec.summary       = %q{Snapshots Github repositories}
+  spec.homepage      = "https://github.com/innvent/github_snapshot"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -19,10 +19,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "awesome_print"
 
   spec.add_dependency "github_api", "~> 0.10.2"
-  spec.add_dependency "rake"
 end
