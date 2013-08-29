@@ -9,9 +9,18 @@ module Utilities
     if err.empty?
       logger.debug out unless out.empty?
     else
-      logger.error("Open3 error:\n#{'='*79}\n#{err}Command was:\n#{cmd}\n#{'='*79}\n")
+      logger.error "Open3 error:\n#{'='*79}\n#{err}Command was:\n#{cmd}\n#{'='*79}\n"
       raise Utilities::ExecError
     end
+  end
+
+  def tar(file, logger)
+    if File.exists? file
+      Utilities.exec "tar zcf #{file}.tar.gz #{file}", logger
+    else
+      logger.error "Unable to tar #{file}"
+    end
+
   end
 
 end

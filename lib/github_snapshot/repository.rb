@@ -67,14 +67,14 @@ module GithubSnapshot
         raise GithubSnapshot::Error
       end
 
-      GithubSnapshot.exec "tar zcf #{folder}.tar.gz #{folder}"
+      Utilities.tar "#{folder}", GithubSnapshot.logger
       GithubSnapshot.exec "rm -rf #{folder}"
     end
 
     def clone_wiki
       GithubSnapshot.logger.info "#{canonical_name} - cloning wiki"
       GithubSnapshot.exec "#{GithubSnapshot.git_clone_cmd} #{wiki_ssh_url} #{wiki_folder}"
-      GithubSnapshot.exec "tar zcf #{wiki_folder}.tar.gz #{wiki_folder}"
+      Utilities.tar "#{wiki_folder}", GithubSnapshot.logger
       GithubSnapshot.exec "rm -rf #{wiki_folder}"
     end
 
