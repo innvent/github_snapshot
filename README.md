@@ -47,6 +47,7 @@ organizations:
 s3bucket: <s3 bucket to store the backups>
 backup_folder: <backup folder were the repos will be cloned to>
 releases_to_keep: <how many releases to keep>
+git_clone_timeout: <timeout time for git clone>
 ```
 
 Then, simply run the gem's binary:

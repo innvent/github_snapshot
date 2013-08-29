@@ -10,25 +10,20 @@ module GithubSnapshot
   @@git_clone_cmd          = "git clone --quiet --mirror"
   @@time_now               = Time.now.getutc.strftime("%Y%m%d%H%M")
   @@releases_to_keep
+  @@git_clone_timeout
 
-  def self.logger
-    @@logger
-  end
-
-  def self.git_clone_cmd
-    @@git_clone_cmd
-  end
-
-  def self.time_now
-    @@time_now
-  end
-
-  def self.releases_to_keep
-    @@releases_to_keep
-  end
+  def self.logger;            @@logger;             end
+  def self.git_clone_cmd;     @@git_clone_cmd;      end
+  def self.time_now;          @@time_now;           end
+  def self.releases_to_keep;  @@releases_to_keep;   end
+  def self.git_clone_timeout; @@git_clone_timeout;  end
 
   def self.releases_to_keep=(releases_to_keep)
     @@releases_to_keep = releases_to_keep
+  end
+
+  def self.git_clone_timeout=(git_clone_timeout)
+    @@git_clone_timeout = git_clone_timeout
   end
 
   def self.exec(cmd)
@@ -49,7 +44,8 @@ module GithubSnapshot
       @organizations = config['organizations']
       @s3_bucket     = config['s3bucket']
       @backup_folder = config['backup_folder']
-      GithubSnapshot.releases_to_keep = config['releases_to_keep']
+      GithubSnapshot.releases_to_keep  = config['releases_to_keep']
+      GithubSnapshot.git_clone_timeout = config['git_clone_timeout']
 
       @github = Github.new do |config|
         config.login           = username

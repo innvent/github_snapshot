@@ -4,6 +4,7 @@ require "timeout"
 require_relative "utilities"
 
 module GithubSnapshot
+  Error = Class.new(RuntimeError)
 
   class Repository
 
@@ -35,11 +36,16 @@ module GithubSnapshot
         return nil
       end
 
-      Dir.chdir "#{organization.name}"
-      clone
-      clone_wiki if self.has_wiki?
-      prune_old_backups
-      Dir.chdir ".."
+      begin
+        Dir.chdir "#{organization.name}"
+        clone
+        clone_wiki if self.has_wiki?
+        prune_old_backups
+        Dir.chdir ".."
+      rescue GithubSnapshot::Error
+        GithubSnapshot.logger.error "#{canonical_name} - skipping due to error"
+        return nil
+      end
 
       GithubSnapshot.logger.info "#{canonical_name} - success"
     end
@@ -48,13 +54,19 @@ module GithubSnapshot
 
     def clone
       GithubSnapshot.logger.info "#{canonical_name} - cloning"
+
+      # Cloning large repos is a very sensitive operation; here we rely on
+      # Timeout to make sure the script doesn't hang
       begin
-        Timeout::timeout (300) {
+        Timeout::timeout (GithubSnapshot.git_clone_timeout) {
           GithubSnapshot.exec "#{GithubSnapshot.git_clone_cmd} #{ssh_url} #{folder}"
         }
-      rescue Timeout::Error => e
-        logger.error "Could not clone #{canonical_name}, timedout"
+      rescue Timeout::Error, Utilities::ExecError => e
+        message = e.class == Timeout::Error ? 'timedout' : 'exec error'
+        GithubSnapshot.logger.error "Could not clone #{canonical_name}, #{message}"
+        raise GithubSnapshot::Error
       end
+
       GithubSnapshot.exec "tar zcf #{folder}.tar.gz #{folder}"
       GithubSnapshot.exec "rm -rf #{folder}"
     end

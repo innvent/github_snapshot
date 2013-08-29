@@ -1,4 +1,7 @@
 module Utilities
+  Error     = Class.new(RuntimeError)
+  ExecError = Class.new(Error)
+
   module_function
 
   def exec(cmd, logger)
@@ -6,8 +9,9 @@ module Utilities
     if err.empty?
       logger.debug out unless out.empty?
     else
-      logger.error("Open3 error:\n#{'='*79}\n#{err}
-                    Command was:\n#{cmd}\n#{'='*79}\n")
+      logger.error("Open3 error:\n#{'='*79}\n#{err}Command was:\n#{cmd}\n#{'='*79}\n")
+      raise Utilities::ExecError
     end
   end
+
 end
