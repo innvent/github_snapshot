@@ -71,7 +71,12 @@ module GithubSnapshot
 
     def download_from_s3
       GithubSnapshot.logger.info "downloading fom s3"
-      GithubSnapshot.exec "s3cmd sync --delete-removed s3://#{s3_bucket}/ #{backup_folder}/"
+      begin
+        GithubSnapshot.exec "s3cmd sync --delete-removed s3://#{s3_bucket}/ #{backup_folder}/"
+      rescue Utilities::ExecError
+        GithubSnapshot.logger.info "s3cmd doesn't respect exit status\n"\
+                                   "there is a good chance that the sync was successful"
+      end
     end
 
     def backup_orgs
