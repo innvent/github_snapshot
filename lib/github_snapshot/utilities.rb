@@ -20,7 +20,6 @@ module Utilities
     else
       logger.error "Unable to tar #{file}"
     end
-
   end
 
 end
