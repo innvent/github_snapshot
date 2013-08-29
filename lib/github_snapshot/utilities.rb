@@ -6,7 +6,8 @@ module Utilities
     if err.empty?
       logger.debug out unless out.empty?
     else
-      logger.error(err + " command was: #{cmd}")
+      logger.error("Open3 error:\n#{'='*79}\n#{err}
+                    Command was:\n#{cmd}\n#{'='*79}\n")
     end
   end
 end
