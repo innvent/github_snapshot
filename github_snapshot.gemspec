@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "github_snapshot"
   spec.version       = GithubSnapshot::VERSION
   spec.authors       = ["Artur Rodrigues" , "Joao Sa"]
-  spec.email         = ["arturhoo@gmail.com"]
+  spec.email         = ["arturhoo@gmail.com", "me@joaomsa.com"]
   spec.description   = %q{Snapshots multiple organizations GitHub repositories, including wikis, and syncs them to Amazon's S3}
   spec.summary       = %q{Snapshots Github repositories}
   spec.homepage      = "https://github.com/innvent/github_snapshot"
