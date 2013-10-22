@@ -36,17 +36,16 @@ module GithubSnapshot
         return nil
       end
 
+      Dir.chdir "#{@organization.name}"
       begin
-        Dir.chdir "#{@organization.name}"
         clone
         clone_wiki if has_wiki?
         prune_old_backups
-        Dir.chdir ".."
       rescue GithubSnapshot::Error
         GithubSnapshot.logger.error "#{@canonical_name} - skipping due to error"
         return nil
-        Dir.chdir ".."
       end
+      Dir.chdir ".."
 
       GithubSnapshot.logger.info "#{@canonical_name} - success"
     end
@@ -81,7 +80,7 @@ module GithubSnapshot
 
     def prune_old_backups
       GithubSnapshot.logger.info "#{@canonical_name} - pruning old backups"
-      file_regex  = "#{@name}-GST-*"
+      file_regex  = "#{@name}-GST-*tar.gz"
       zipped_bkps = FileList[file_regex].exclude(/wiki/)
       zipped_bkps.sort[0..-(GithubSnapshot.releases_to_keep + 1)].each do |file|
         File.delete file
