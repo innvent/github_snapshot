@@ -45,6 +45,7 @@ module GithubSnapshot
       rescue GithubSnapshot::Error
         GithubSnapshot.logger.error "#{canonical_name} - skipping due to error"
         return nil
+        Dir.chdir ".."
       end
 
       GithubSnapshot.logger.info "#{canonical_name} - success"
