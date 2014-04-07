@@ -22,5 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
   spec.add_development_dependency "awesome_print"
 
-  spec.add_dependency "github_api", "~> 0.10.2"
+  spec.add_dependency "github_api", "~> 0.11.3"
 end
